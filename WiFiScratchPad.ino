@@ -16,7 +16,7 @@ byte macByteArray[6];
 int loopCount = 0;
 
 
-void setup() 
+void setup()
 {
 	Serial.begin( 115200 );
 	while ( !Serial )
@@ -155,7 +155,7 @@ void printCurrentNet()
 } // End of printCurrentNet() function.
 
 
-void loop() 
+void loop()
 {
 	loopCount++;
 	Serial.println( sketchName + " loop # " + loopCount );
