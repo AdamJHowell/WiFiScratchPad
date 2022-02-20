@@ -1,8 +1,7 @@
 /*
  * This program is an attempt to make a device-agnostic WiFi test tool.
  */
-//#include <SPI.h>
-#include <ESP8266WiFi.h>
+#include "WiFi.h"						// This header is part of the standard library.  https://www.arduino.cc/en/Reference/WiFi
 #include "privateInfo.h"
 
 
@@ -14,6 +13,7 @@ String macString = "00:00:00:00:00:00";
 char ipCharArray[16];
 char macCharArray[18];
 byte macByteArray[6];
+int loopCount = 0;
 
 
 void setup() 
@@ -49,7 +49,7 @@ void setup()
 } // End of setup() function.
 
 
-void wifiConnect( int attemptCount )
+void wifiConnect( int maxAttempts )
 {
 	Serial.println( "\nEntering wifiConnect()" );
 	// Announce WiFi parameters.
@@ -61,7 +61,7 @@ void wifiConnect( int attemptCount )
 	Serial.printf( "Wi-Fi mode set to WIFI_STA %s\n", WiFi.mode( WIFI_STA ) ? "" : "Failed!" );
 	WiFi.begin( wifiSsid, wifiPassword );
 
-	int i = 0;
+	int attemptCount = 0;
 	/*
      WiFi.status() return values:
      0 : WL_IDLE_STATUS when WiFi is in process of changing between statuses
@@ -71,13 +71,13 @@ void wifiConnect( int attemptCount )
      6 : WL_DISCONNECTED if module is not configured in station mode
   */
 	// Loop until WiFi has connected.
-	while( WiFi.status() != WL_CONNECTED && i < attemptCount )
+	while( WiFi.status() != WL_CONNECTED && attemptCount < maxAttempts )
 	{
 		delay( 1000 );
 		Serial.println( "Waiting for a connection..." );
 		Serial.print( "WiFi status: " );
 		Serial.println( WiFi.status() );
-		Serial.print( ++i );
+		Serial.print( ++attemptCount );
 		Serial.println( " seconds" );
 	}
 
@@ -126,35 +126,30 @@ void printCurrentNet()
 {
 	Serial.println( "\nEntering printCurrentNet()" );
 
-	// print the SSID of the network you're attached to:
-	Serial.print("SSID: ");
-	Serial.println(WiFi.SSID());
+	// Print the SSID of the network you're attached to:
+	Serial.print( "SSID: " );
+	Serial.println( WiFi.SSID() );
 
-	// print the MAC address of the router you're attached to:
-	byte bssid[6];
-//	WiFi.BSSID(bssid);
-//	Serial.print("BSSID: ");
-//	Serial.print(bssid[5], HEX);
-//	Serial.print(":");
-//	Serial.print(bssid[4], HEX);
-//	Serial.print(":");
-//	Serial.print(bssid[3], HEX);
-//	Serial.print(":");
-//	Serial.print(bssid[2], HEX);
-//	Serial.print(":");
-//	Serial.print(bssid[1], HEX);
-//	Serial.print(":");
-//	Serial.println(bssid[0], HEX);
+	// Print the MAC address of the router you're attached to:
+//	byte bssid[6];
+//	WiFi.BSSID( bssid );
+//	Serial.print( "BSSID: " );
+//	Serial.print( bssid[5], HEX );
+//	Serial.print( ":");
+//	Serial.print( bssid[4], HEX );
+//	Serial.print( ":");
+//	Serial.print( bssid[3], HEX );
+//	Serial.print( ":");
+//	Serial.print( bssid[2], HEX );
+//	Serial.print( ":");
+//	Serial.print( bssid[1], HEX );
+//	Serial.print( ":");
+//	Serial.println( bssid[0], HEX );
 
-	// print the received signal strength:
+	// Print the signal strength:
 	long rssi = WiFi.RSSI();
-	Serial.print("signal strength (RSSI):");
-	Serial.println(rssi);
-
-	// print the encryption type:
-//	byte encryption = WiFi.encryptionType();
-//	Serial.print("Encryption Type:");
-//	Serial.println(encryption, HEX);
+	Serial.print( "signal strength (RSSI):" );
+	Serial.println( rssi );
 
 	Serial.println( "End of printCurrentNet()\n" );
 } // End of printCurrentNet() function.
@@ -162,6 +157,12 @@ void printCurrentNet()
 
 void loop() 
 {
+	loopCount++;
+	Serial.println( sketchName + " loop # " + loopCount );
+
+	if( WiFi.status() != WL_CONNECTED )
+		wifiConnect( 2 );
+
 	Serial.println();
 	Serial.println( sketchName );
 	Serial.print( "MAC char array: " );
