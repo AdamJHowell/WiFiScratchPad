@@ -40,8 +40,8 @@ void setup()
 	// Set the ipCharArray char array to a default value.
 	snprintf( ipCharArray, 16, "127.0.0.1" );
 
-//	Serial.print( "Auto-reconnect = " );
-//	Serial.println( WiFi.getAutoReconnect() );
+	Serial.print( "Auto-reconnect = " );
+	Serial.println( WiFi.getAutoReconnect() );
 
 	// Try to connect to the configured WiFi network, up to 20 times.
 	wifiConnect( 20 );
@@ -99,24 +99,24 @@ void printWifiData()
 
 	// print your WiFi shield's IP address:
 	IPAddress ip = WiFi.localIP();
-	Serial.print("IP Address: ");
-	Serial.println(ip);
+	Serial.print( "IP Address: " );
+	Serial.println( ip );
 
 	// print your MAC address:
 	byte mac[6];
-	WiFi.macAddress(mac);
-	Serial.print("MAC address: ");
-	Serial.print(mac[5], HEX);
-	Serial.print(":");
-	Serial.print(mac[4], HEX);
-	Serial.print(":");
-	Serial.print(mac[3], HEX);
-	Serial.print(":");
-	Serial.print(mac[2], HEX);
-	Serial.print(":");
-	Serial.print(mac[1], HEX);
-	Serial.print(":");
-	Serial.println(mac[0], HEX);
+	WiFi.macAddress( mac );
+	Serial.print( "MAC address: " );
+	Serial.print( mac[5], HEX );
+	Serial.print( ":" );
+	Serial.print( mac[4], HEX );
+	Serial.print( ":" );
+	Serial.print( mac[3], HEX );
+	Serial.print( ":" );
+	Serial.print( mac[2], HEX );
+	Serial.print( ":" );
+	Serial.print( mac[1], HEX );
+	Serial.print( ":" );
+	Serial.println( mac[0], HEX );
 
 	Serial.println( "End of  printWifiData()\n" );
 } // End of printWifiData() function.
