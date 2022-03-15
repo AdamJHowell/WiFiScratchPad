@@ -14,6 +14,7 @@ char ipCharArray[16];
 char macCharArray[18];
 byte macByteArray[6];
 int loopCount = 0;
+int publishDelay = 10000;
 
 
 void setup()
@@ -175,6 +176,7 @@ void loop()
 	printCurrentNet();
 	printWifiData();
 
-	Serial.println( "Delaying 10 seconds...\n" );
-	delay( 10000 );
+	Serial.println( "Delaying " );
+	Serial.print( publishDelay / 1000 );
+	Serial.println( " seconds.\n" );
 } // End of loop() function.
