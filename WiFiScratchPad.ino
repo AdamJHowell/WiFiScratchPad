@@ -20,8 +20,8 @@ int publishDelay = 10000;
 void setup()
 {
 	Serial.begin( 115200 );
-	while ( !Serial )
-		delay( 100 );
+	if( !Serial )
+		delay( 1000 );
 //	Serial.setDebugOutput( true );
 	Serial.println();
 	Serial.println( "Running setup() in " + sketchName );
