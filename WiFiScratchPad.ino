@@ -7,14 +7,16 @@
 
 //const char* wifiSsid = "<change or use privateInfo.h>";
 //const char* wifiPassword = "<change or use privateInfo.h>";
-String sketchName = "WiFiScratchPad.ino";
-String ipString = "127.0.0.1";
-String macString = "00:00:00:00:00:00";
-char ipCharArray[16];
-char macCharArray[18];
-byte macByteArray[6];
-int loopCount = 0;
-int publishDelay = 10000;
+String sketchName = "WiFiScratchPad.ino";	// A string to hold this sketch name.
+String ipString = "127.0.0.1";				// A String to hold the IP address.
+String macString = "00:00:00:00:00:00";	// A String to hold the MAC address.
+char ipCharArray[16];							// A character array to hold the IP address.
+char macCharArray[18];							// A character array to hold the MAC address.
+byte macByteArray[6];							// A byte array to hold the MAC address.
+unsigned long loopCount = 0;					// An unsigned long can hold 8,171 years worth of one-minute loops.  A word can hold only 45.5 days worth.
+unsigned long publishDelay = 20000;			// An unsigned long can hold values from 0-4,294,967,295.  In milliseconds, this sets a limit at 49.7 days of time.
+unsigned long mqttReconnectDelay = 5000;	// An unsigned long can hold values from 0-4,294,967,295.  In milliseconds, this sets a limit at 49.7 days of time.
+unsigned long lastLoop = 0;					// An unsigned long can hold values from 0-4,294,967,295.  In milliseconds, this sets a limit at 49.7 days of time.
 
 
 void setup()
