@@ -1,3 +1,9 @@
 networkVariables.h
-privateInfo.h
+privateInfo.*
 .vscode/
+.vscode/
+.idea/
+*.iml
+privateInfo.*
+debug_custom.json
+*.svd
